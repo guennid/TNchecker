@@ -1,0 +1,6 @@
+Demo {
+  // Für Windows:
+  com.sun.security.auth.module.NTLoginModule required debug=false;
+  // Für Unix:
+  // com.sun.security.auth.module.UnixLoginModule required debug=false;
+};

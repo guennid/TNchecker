@@ -1,8 +1,8 @@
 ----------------------------------------------------------------
-2015-03-27 11:39:15.959 GMT:
-Booten von Derby Version The Apache Software Foundation - Apache Derby - 10.6.2.1 - (999685): Instanz a816c00e-014c-5b07-6e19-000000a90968
-für Datenbankverzeichnis C:\Users\gdenz.ABAS-PROJEKT\Documents\NetBeansProjects\tnchecker\database   mit Klassenladeprogrammn sun.misc.Launcher$AppClassLoader@750159
+2015-03-28 06:14:59.640 GMT:
+Booten von Derby Version The Apache Software Foundation - Apache Derby - 10.6.2.1 - (999685): Instanz a816c00e-014c-5f04-e87a-000000a56990
+für Datenbankverzeichnis E:\günter\Eigene Dokumente\NetBeansProjects\tnchecker\database   mit Klassenladeprogrammn sun.misc.Launcher$AppClassLoader@16930e2
 
 java.vendor=Oracle Corporation
-java.runtime.version=1.7.0_75-b13
+java.runtime.version=1.7.0_07-b10
 Das Ladeprogramm für Datenbankklassen wurde gestartet - derby.database.classpath=''

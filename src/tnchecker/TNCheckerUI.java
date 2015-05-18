@@ -11,6 +11,7 @@ import de.abas.ceks.jedp.EDPFactory;
 import de.abas.ceks.jedp.EDPQuery;
 import de.abas.ceks.jedp.EDPSession;
 import de.abas.ceks.jedp.InvalidQueryException;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
@@ -32,11 +33,14 @@ import java.sql.Statement;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.Properties;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JCheckBox;
@@ -315,7 +319,7 @@ public class TNCheckerUI extends javax.swing.JFrame {
              Calendar Kalender=new GregorianCalendar();
              Kalender.setTime(ZeitraumVon.getTime());
              Kalender.add(Calendar.DATE, -100);
-             String UrlaubVon=Kalender.get(Calendar.DATE)+"."+Kalender.get(Calendar.MONTH)+"."+Kalender.get(Calendar.YEAR);
+             String UrlaubVon=Kalender.get(Calendar.DATE)+"."+Kalender.get(Calendar.MONTH+1)+"."+Kalender.get(Calendar.YEAR);
              String Von=sdf.format(ZeitraumVon.getTime());
              String Bis=sdf.format(ZeitraumVon.getTime());
              
@@ -366,6 +370,7 @@ public class TNCheckerUI extends javax.swing.JFrame {
             
             //edpQMa.startQuery("11:1","","austr=`;ymaart=Eigener Mitarbeiter;anf="+Von+";end="+Bis+";@zeilen=(Yes)","yvkstelle^nummer,name,anf, ende,yurlminus") ;
             edpQMa.startQuery("11:1","","austr=`;ymaart=Eigener Mitarbeiter;anf="+UrlaubVon+"!;yurlminus=0.5!;@zeilen=(Yes)","yvkstelle^nummer,such,name,anf, end,yurlminus") ;
+            System.out.println(UrlaubVon);
             while (edpQMa.getNextRecord()) {
                 if (edpQMa.getField(1).startsWith("3")||edpQMa.getField(1).startsWith("4"))
                 {
@@ -531,6 +536,18 @@ public class TNCheckerUI extends javax.swing.JFrame {
         int exchangezeit=0;
         Date datumakt=null;
         Date datumold=null;
+      /* 
+     	Calendar testDate = GregorianCalendar.getInstance();
+        testDate.set(2015, 11, 25);
+        HolidayManager manager = HolidayManager.getInstance(HolidayCalendar.GERMANY);
+        Set<de.jollyday.Holiday> holidays = manager.getHolidays(2015, "Baden");
+        for (Iterator<de.jollyday.Holiday> it = holidays.iterator(); it.hasNext();) {
+            de.jollyday.Holiday h = it.next();
+            System.out.println(h.getDescription()+" ");
+        }
+        System.out.println(manager.isHoliday(testDate, "Baden"));
+        //.getInstance(HolidayCalendar.UNITED_STATES);
+       */
 //  Name gewählt, alles darstellen
          DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTree1.getLastSelectedPathComponent();
             if (node == null) {

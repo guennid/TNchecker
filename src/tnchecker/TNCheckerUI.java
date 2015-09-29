@@ -298,6 +298,7 @@ public class TNCheckerUI extends javax.swing.JFrame {
             String kst;
             kst="";
             int iResult;
+                int monat;
             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yy", Locale.GERMANY);
             
             //DB Starten
@@ -319,7 +320,10 @@ public class TNCheckerUI extends javax.swing.JFrame {
              Calendar Kalender=new GregorianCalendar();
              Kalender.setTime(ZeitraumVon.getTime());
              Kalender.add(Calendar.DATE, -100);
-             String UrlaubVon=Kalender.get(Calendar.DATE)+"."+Kalender.get(Calendar.MONTH+1)+"."+Kalender.get(Calendar.YEAR);
+        
+            monat=Kalender.get(Calendar.MONTH);
+            monat=monat+1;
+             String UrlaubVon=Kalender.get(Calendar.DATE)+"."+monat +"."+Kalender.get(Calendar.YEAR);
              String Von=sdf.format(ZeitraumVon.getTime());
              String Bis=sdf.format(ZeitraumVon.getTime());
              
@@ -334,9 +338,12 @@ public class TNCheckerUI extends javax.swing.JFrame {
            
             //Mitarbeiter selektieren
             while (edpQMa.getNextRecord()) {
-                if (edpQMa.getField(5).startsWith("3")||edpQMa.getField(5).startsWith("4"))
+                if (edpQMa.getField(5).startsWith("3060")||edpQMa.getField(5).startsWith("3070")||edpQMa.getField(5).startsWith("3080")||edpQMa.getField(5).startsWith("2010")||edpQMa.getField(5).startsWith("2020")||edpQMa.getField(5).startsWith("2030")||edpQMa.getField(5).startsWith("2040")||edpQMa.getField(5).startsWith("2050"))
                 {
-                 System.out.println(edpQMa.getField(1)+" "+edpQMa.getField(2)+" "+edpQMa.getField(6));
+                     String email=edpQMa.getField(6);
+                    email=email.replace("abas.de", "abasag.intra");
+                   
+                 System.out.println(edpQMa.getField(1)+" "+edpQMa.getField(2)+" "+email);
                  if (!edpQMa.getField(2).equals (""))
                     {
           
@@ -349,7 +356,7 @@ public class TNCheckerUI extends javax.swing.JFrame {
                           
                     //MaNode = new DefaultMutableTreeNode(edpQMa.getField(3));
                     //TeamNode.add(MaNode);
-                    String email=edpQMa.getField(6);
+                   
                    
                    /* if (email.equals("Martin.Musselmann@abas.de")) {email="M.Musselmann@abas-projektierung.de"; }
                     if (email.equals("Patrick.Steup@abas.de")) {email="P.Steup@abas-projektierung.de"; }
@@ -370,7 +377,7 @@ public class TNCheckerUI extends javax.swing.JFrame {
             
             //edpQMa.startQuery("11:1","","austr=`;ymaart=Eigener Mitarbeiter;anf="+Von+";end="+Bis+";@zeilen=(Yes)","yvkstelle^nummer,name,anf, ende,yurlminus") ;
             edpQMa.startQuery("11:1","","austr=`;ymaart=Eigener Mitarbeiter;anf="+UrlaubVon+"!;yurlminus=0.5!;@zeilen=(Yes)","yvkstelle^nummer,such,name,anf, end,yurlminus") ;
-            System.out.println(UrlaubVon);
+           // System.out.println(UrlaubVon);
             while (edpQMa.getNextRecord()) {
                 if (edpQMa.getField(1).startsWith("3")||edpQMa.getField(1).startsWith("4"))
                 {
@@ -457,7 +464,7 @@ public class TNCheckerUI extends javax.swing.JFrame {
                     java.sql.Time myVonTime = java.sql.Time.valueOf(edpQMa.getField(4).trim()+":00");
                     java.sql.Time myBisTime = java.sql.Time.valueOf(edpQMa.getField(5).trim()+":00");
                     
-                      System.out.println(myVonTime+" /" + myBisTime+"/"+mydatum);         
+                      System.out.println(edpQMa.getField(1)+"/"+myVonTime+" /" + myBisTime+"/"+mydatum);         
                      iResult = xstatement.executeUpdate("INSERT INTO TN (MITARBEITER,DATUM, Kunde, von, bis) Values ('" + edpQMa.getField(1)+ "','" + sqlDate+"','" + edpQMa.getField(3)+"','" + myVonTime+"','" + myBisTime+"')");              
                            }
                 }
